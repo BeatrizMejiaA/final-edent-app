@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 
-import Swal from 'sweetalert2';
-
+import Swal from "sweetalert2";
+//require("dotenv").config();
 export const Schedule = () => {
   const [name, setPatientName] = useState("");
   const [date_time, setDateTime] = useState("");
@@ -21,9 +21,9 @@ export const Schedule = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await Axios.get(
-          "http://localhost:3001/api/getPatients"
-        );
+        //const st =  "${process.env.REACT_APP_PATH}/api/getPatients";
+        console.log(process.env);
+        const { data } = await Axios.get(process.env.REACT_APP_PATH+"api/getPatients");
         setPatientsList(data);
       } catch (error) {
         console.error(error);
@@ -37,7 +37,7 @@ export const Schedule = () => {
     const fetchData = async () => {
       try {
         const { data } = await Axios.get(
-          "http://localhost:3001/api/getServices"
+          process.env.REACT_APP_PATH+"api/getServices"
         );
         setServiceList(data);
       } catch (error) {
@@ -49,12 +49,12 @@ export const Schedule = () => {
   }, []);
 
   const Schedule = () => {
-    Axios.post("http://localhost:3001/api/schedule", {
+    Axios.post(process.env.REACT_APP_PATH+"api/schedule", {
       p_name: name,
       date_time: date_time,
       treatment: service,
     }).then(() => {
-      Swal.fire('Error!!', 'error');
+      Swal.fire("Error!!", "error");
       alert("paciente agregado");
     });
   };
@@ -79,7 +79,9 @@ export const Schedule = () => {
           >
             <option defaultValue="1">Paciente ...</option>
             {patientsList.map((option) => (
-              <option  key={option.value} value={option.value}>{option.label}</option>
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
             ))}
           </select>
         </div>
@@ -109,7 +111,9 @@ export const Schedule = () => {
           >
             <option defaultValue="1">Servicio ...</option>
             {serviceList.map((option) => (
-              <option  key={option.value} value={option.value}>{option.label}</option>
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
             ))}
           </select>
         </div>

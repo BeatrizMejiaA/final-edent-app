@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 
 import Axios from 'axios';
-import Swal from 'sweetalert2';
 
 export const  Patient = () => {
 
@@ -9,8 +8,9 @@ export const  Patient = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
-  const createPatient = () => {
-    Axios.post("http://localhost:3001/api/insert", {
+  const createPatient = (e) => {
+    e.preventDefault();
+    Axios.post(process.env.REACT_APP_PATH+"api/insert", {
       nombre_paciente: name,
       correo: email,
       telefono: phone,

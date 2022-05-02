@@ -1,5 +1,4 @@
 import React, {useEffect,useState} from "react";
-import { render } from "react-dom";
 import Paper from "@material-ui/core/Paper";
 import Axios from "axios";
 import { ViewState } from "@devexpress/dx-react-scheduler";
@@ -44,7 +43,7 @@ export const Newagenda = () => {
     const [calendar, setCalendar] = useState([]);
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/getCalendar2").then((response) => {
+    Axios.get(process.env.REACT_APP_PATH+"api/getCalendar2").then((response) => {
       setCalendar(response.data);
     });
   }, []);

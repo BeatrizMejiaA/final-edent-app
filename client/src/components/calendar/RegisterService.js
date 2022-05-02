@@ -7,21 +7,22 @@ export const RegisterService = () => {
     const [treatmentName, setTreatmentName] = useState("");
     const [cost, setCost] = useState("");
 
-    const registerService = () => {
+    /*const registerService = () => {
         Axios.post("http://localhost:3001/api/registerService", {
           nombre_tratamiento: treatmentName,
           costo: cost
         }).then(() => {
           alert("paciente agregado");
         });
-    };
+    };*/
 
     const register = () => {
-      Axios.post("http://localhost:3001/api/registerService", {
+      Axios.post(process.env.REACT_APP_PATH+"api/registerService", {
         nombre_tratamiento: treatmentName,
         costo: cost
       })
       .then(function (response) {
+        console.log(response);
         Swal.fire('success');
       })
       .catch(function (e) {
